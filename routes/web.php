@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController; 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Vendor\AuthController as VendorRegisterController;
 use App\Http\Controllers\Admin\VendorController as AdminVendorController;
 

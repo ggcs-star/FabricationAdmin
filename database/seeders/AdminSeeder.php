@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,7 +10,8 @@ class AdminSeeder extends Seeder
 {
     public function run()
     {
-        $admin = User::firstOrCreate(
+        // First Admin
+        $admin1 = User::firstOrCreate(
             [
                 'email' => 'admin@example.com'
             ],
@@ -22,6 +21,19 @@ class AdminSeeder extends Seeder
             ]
         );
 
-        $admin->assignRole('admin');
+        $admin1->assignRole('admin');
+
+        // Second Admin
+        $admin2 = User::firstOrCreate(
+            [
+                'email' => 'navin@admin.com'
+            ],
+            [
+                'name' => 'Navin Admin',
+                'password' => Hash::make('pass123')
+            ]
+        );
+
+        $admin2->assignRole('admin');
     }
 }
