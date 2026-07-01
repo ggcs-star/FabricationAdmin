@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title', 'Add Service | FabriQ Admin')
-@section('page_title', 'Add Service')
+@section('title', 'Add Product | FabriQ Admin')
+@section('page_title', 'Add Product')
 
 @section('content')
 <div class="bg-white rounded-xl border border-gray-200 p-6 max-w-3xl">
-    <form action="{{ route('admin.services.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('admin.products.store') }}" method="POST" class="space-y-4">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -26,12 +26,25 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Service Name *</label>
-                <input type="text" name="name" value="{{ old('name') }}" placeholder="e.g. Steel Gate Fabrication" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Service (optional)</label>
+                <select name="service_id" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                    <option value="">Select service</option>
+                    @foreach($services as $service)
+                        <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>{{ $service->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Base Price (₹) *</label>
-                <input type="number" step="0.01" name="base_price" value="{{ old('base_price') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
+                <input type="text" name="name" value="{{ old('name') }}" placeholder="e.g. Royal Fortress Steel Gate" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Price From (₹) *</label>
+                <input type="number" step="0.01" name="price" value="{{ old('price') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+                <input type="number" name="stock" value="{{ old('stock', 0) }}" class="w-full border border-gray-300 rounded-lg px-3 py-2">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
@@ -47,7 +60,7 @@
         </div>
         <div class="flex gap-3">
             <button type="submit" class="bg-fabriq-500 hover:bg-fabriq-600 text-white px-5 py-2 rounded-lg">Save</button>
-            <a href="{{ route('admin.services.index') }}" class="px-5 py-2 border border-gray-300 rounded-lg">Cancel</a>
+            <a href="{{ route('admin.products.index') }}" class="px-5 py-2 border border-gray-300 rounded-lg">Cancel</a>
         </div>
     </form>
 </div>

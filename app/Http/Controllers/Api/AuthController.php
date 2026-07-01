@@ -80,9 +80,28 @@ class AuthController extends Controller
             'status' => true,
             'token' => $token,
             'token_type' => 'Bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60 // Good practice for frontend
+            'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
 
-    // ... (me & logout methods remain the same) ...
+    public function me()
+    {
+        $user = auth('api')->user();
+
+        return response()->json([
+            'status' => true,
+            'user' => $user->only(['id', 'name', 'email', 'phone', 'status']),
+            'roles' => $user->getRoleNames(),
+        ]);
+    }
+
+    public function logout()
+    {
+        auth('api')->logout();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Logged out successfully.',
+        ]);
+    }
 }

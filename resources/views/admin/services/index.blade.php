@@ -1,42 +1,46 @@
-@extends('layouts.app')
-@section('title', 'Manage Services')
+@extends('layouts.admin')
+@section('title', 'Services | FabriQ Admin')
+@section('page_title', 'Services')
+@section('page_subtitle', 'Fabrication services offered by vendors')
 
 @section('content')
-<div class="bg-white p-6 rounded shadow-sm border-t-4 border-purple-600">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Services Catalog</h1>
-        <a href="{{ route('admin.services.create') }}" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">+ Add New Service</a>
+<div class="bg-white rounded-xl border border-gray-200">
+    <div class="flex justify-end p-5 border-b border-gray-100">
+        <a href="{{ route('admin.services.create') }}" class="bg-fabriq-500 hover:bg-fabriq-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Add Service</a>
     </div>
-
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border">
-            <thead class="bg-gray-100">
+        <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 text-gray-600">
                 <tr>
-                    <th class="py-2 px-4 border-b text-left">Service Name</th>
-                    <th class="py-2 px-4 border-b text-left">Category</th>
-                    <th class="py-2 px-4 border-b text-left">Base Price (₹)</th>
-                    <th class="py-2 px-4 border-b text-left">Duration</th>
-                    <th class="py-2 px-4 border-b text-left">Actions</th>
+                    <th class="text-left px-5 py-3">Service</th>
+                    <th class="text-left px-5 py-3">Category</th>
+                    <th class="text-left px-5 py-3">Vendor</th>
+                    <th class="text-left px-5 py-3">Price (₹)</th>
+                    <th class="text-left px-5 py-3">Status</th>
+                    <th class="text-left px-5 py-3">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($services as $service)
-                <tr class="hover:bg-gray-50">
-                    <td class="py-2 px-4 border-b font-medium">{{ $service->name }}</td>
-                    <td class="py-2 px-4 border-b text-gray-600">{{ $service->category->name }}</td>
-                    <td class="py-2 px-4 border-b font-bold text-green-600">₹{{ number_format($service->base_price, 2) }}</td>
-                    <td class="py-2 px-4 border-b">{{ $service->duration_minutes }} mins</td>
-                    <td class="py-2 px-4 border-b">
-                        <a href="#" class="text-blue-500 hover:underline">Edit</a>
+                <tr class="border-t border-gray-100 hover:bg-gray-50">
+                    <td class="px-5 py-3 font-medium">{{ $service->name }}</td>
+                    <td class="px-5 py-3">{{ $service->category?->name ?? '-' }}</td>
+                    <td class="px-5 py-3">{{ $service->vendor?->business_name ?? '-' }}</td>
+                    <td class="px-5 py-3 text-fabriq-600 font-semibold">₹{{ number_format($service->base_price, 0) }}</td>
+                    <td class="px-5 py-3 capitalize">{{ $service->status }}</td>
+                    <td class="px-5 py-3 space-x-3">
+                        <a href="{{ route('admin.services.edit', $service) }}" class="text-blue-600 hover:underline">Edit</a>
+                        <form action="{{ route('admin.services.destroy', $service) }}" method="POST" class="inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')
+                            <button class="text-red-600 hover:underline">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @empty
-                <tr>
-                    <td colspan="5" class="py-4 text-center text-gray-500">No services found.</td>
-                </tr>
+                <tr><td colspan="6" class="px-5 py-8 text-center text-gray-500">No services yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
+    @if($services->hasPages())<div class="p-5">{{ $services->links() }}</div>@endif
 </div>
 @endsection
