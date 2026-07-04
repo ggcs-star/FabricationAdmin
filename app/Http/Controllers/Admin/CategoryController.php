@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->orderBy('name')->get();
+        $categories = Category::whereNull('id')->orderBy('name')->get();
 
         return view('admin.categories.create', compact('categories'));
     }

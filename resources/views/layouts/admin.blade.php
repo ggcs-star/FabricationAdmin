@@ -62,15 +62,6 @@
                 <span>Products</span>
             </a>
 
-            <p class="text-xs text-gray-500 font-semibold uppercase px-3 mt-6 mb-2">Customer Site</p>
-            <a href="{{ url('/') }}" target="_blank"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-300 hover:bg-gray-800">
-                <span>View Website</span>
-            </a>
-            <a href="{{ url('/api/customer/categories') }}" target="_blank"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-300 hover:bg-gray-800">
-                <span>Test Customer API</span>
-            </a>
         </nav>
     </aside>
 
