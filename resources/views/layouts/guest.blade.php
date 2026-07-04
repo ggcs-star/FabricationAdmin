@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Welcome | Rathaya Apex')</title>
+    <title>@yield('title', 'Welcome | Fabrication')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans text-gray-900">
 
     <nav class="bg-white shadow-sm p-4 flex justify-between items-center max-w-7xl mx-auto rounded-b-lg">
-        <a href="/" class="text-2xl font-bold text-blue-600 tracking-tight">Rathaya Apex</a>
+        <a href="/" class="text-2xl font-bold text-blue-600 tracking-tight">Fabrication</a>
         <div>
             <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600 mr-4 font-medium">Login</a>
             <a href="{{ route('vendor.register') }}" class="bg-blue-600 text-white px-5 py-2 rounded-md shadow hover:bg-blue-700 transition">Join as Partner</a>

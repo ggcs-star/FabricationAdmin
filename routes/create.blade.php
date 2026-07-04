@@ -1,6 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'Add Category | FabriQ Admin')
-@section('page_title', 'Add Category')
+
+@section('page_title', 'Create New Category')
+@section('page_subtitle', 'Add a new category to your catalog')
 
 @section('content')
     <div class="mx-auto">
@@ -69,6 +70,19 @@
                 <div class="md:col-span-1">
                     <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
                         <h3 class="text-lg font-semibold text-gray-800 mb-2 border-b pb-3">Settings</h3>
+
+                        <div>
+                            <label for="parent_id" class="block text-sm font-medium text-gray-700">Parent Category</label>
+                            <select name="parent_id" id="parent_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fabriq-500 focus:ring-fabriq-500 sm:text-sm">
+                                <option value="">-- No Parent --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" @selected(old('parent_id') == $category->id)>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div>
                             <label for="sort_order" class="block text-sm font-medium text-gray-700">Sort Order</label>
